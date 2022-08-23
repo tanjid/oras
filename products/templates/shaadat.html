@@ -1,0 +1,154 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<h3>Shaadat</h3>
+
+<h4>Initial Orders</h4>
+
+<table class="table">
+
+
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">code</th>
+        <th scope="col">Image</th>
+        <th scope="col">Price</th>
+        <th scope="col">Supplier</th>
+        <th scope="col">STATUS</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+
+    {% for entry in sahadat_orders_in %}
+    <tbody>
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{entry.code}}</td>
+        <td><img src="{{ entry.main_image.url }}" class="img-thumbnail rounded" alt="..." width="150" height="150"></td>
+        <td>{{entry.price}}</td>
+        <td>{{entry.supplier}}</td>
+        <td>{{entry.status}}</td>
+        <td>
+          <form action="{% url 'edit_entry' entry.id %}" method="POST">
+            {% csrf_token %}
+          <button type="submit" class="btn btn-success">Edit</button></td>
+        </form>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+<h4>Pending Orders</h4>
+
+<table class="table">
+
+
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">code</th>
+        <th scope="col">Image</th>
+        <th scope="col">Price</th>
+        <th scope="col">Supplier</th>
+        <th scope="col">STATUS</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+
+    {% for entry in sahadat_orders_pe %}
+    <tbody>
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{entry.code}}</td>
+        <td><img src="{{ entry.main_image.url }}" class="img-thumbnail rounded" alt="..." width="150" height="150"></td>
+        <td>{{entry.price}}</td>
+        <td>{{entry.supplier}}</td>
+        <td>{{entry.status}}</td>
+        <td>
+          <form action="{% url 'edit_entry' entry.id %}" method="POST">
+            {% csrf_token %}
+          <button type="submit" class="btn btn-success">Edit</button></td>
+        </form>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+<h4>Assigned Orders</h4>
+
+<table class="table">
+
+
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">code</th>
+        <th scope="col">Image</th>
+        <th scope="col">Price</th>
+        <th scope="col">Supplier</th>
+        <th scope="col">STATUS</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+
+    {% for entry in sahadat_orders_as %}
+    <tbody>
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{entry.code}}</td>
+        <td><img src="{{ entry.main_image.url }}" class="img-thumbnail rounded" alt="..." width="150" height="150"></td>
+        <td>{{entry.price}}</td>
+        <td>{{entry.supplier}}</td>
+        <td>{{entry.status}}</td>
+        <td>
+          <form action="{% url 'edit_entry' entry.id %}" method="POST">
+            {% csrf_token %}
+          <button type="submit" class="btn btn-success">Edit</button></td>
+        </form>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+<h4>Complete Orders</h4>
+
+<table class="table">
+
+
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">code</th>
+        <th scope="col">Image</th>
+        <th scope="col">Price</th>
+        <th scope="col">Supplier</th>
+        <th scope="col">STATUS</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+
+    {% for entry in sahadat_orders_co %}
+    <tbody>
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{entry.code}}</td>
+        <td><img src="{{ entry.main_image.url }}" class="img-thumbnail rounded" alt="..." width="150" height="150"></td>
+        <td>{{entry.price}}</td>
+        <td>{{entry.supplier}}</td>
+        <td>{{entry.status}}</td>
+        <td>
+          <form action="{% url 'edit_entry' entry.id %}" method="POST">
+            {% csrf_token %}
+          <button type="submit" class="btn btn-success">Edit</button></td>
+        </form>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+{% endblock %}

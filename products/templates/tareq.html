@@ -1,0 +1,201 @@
+{% extends 'main.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+
+
+
+
+
+
+<h3>Tareq</h3>
+
+{% if tareq_inital_orders %}
+<h4>Initial Orders</h4>
+
+<table class="table">
+
+
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">code</th>
+      <th scope="col">Image</th>
+      <th scope="col">Price</th>
+      <th scope="col">Supplier</th>
+      <th scope="col">STATUS</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+
+  {% for entry in tareq_inital_orders %}
+  <tbody>
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{entry.code}}</td>
+      <td><img src="{{ entry.main_image.url }}" class="img-thumbnail rounded" alt="..." width="150" height="150"></td>
+      <td>{{entry.price}}</td>
+      <td>{{entry.supplier}}</td>
+      <td>{{entry.status}}</td>
+      <td>
+        
+        
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              {{entry.status}}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+          
+              
+        </div>
+      </div>
+      
+      <form action="{% url 'edit_entry' entry.id %}" method="POST">
+        {% csrf_token %}
+
+          <button type="submit" class="btn btn-success">Edit</button>
+
+          <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button>
+      </td>
+      </form>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+{% if tareq_assigned_orders %}
+<h4>Assigned Orders</h4>
+
+<table class="table">
+
+
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">code</th>
+      <th scope="col">Image</th>
+      <th scope="col">Price</th>
+      <th scope="col">Supplier</th>
+      <th scope="col">STATUS</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+
+  {% for entry in tareq_assigned_orders %}
+  <tbody>
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{entry.code}}</td>
+      <td><img src="{{ entry.main_image.url }}" class="img-thumbnail rounded" alt="..." width="150" height="150"></td>
+      <td>{{entry.price}}</td>
+      <td>{{entry.supplier}}</td>
+      <td>{{entry.status}}</td>
+      <td>
+        <form action="{% url 'edit_entry' entry.id %}" method="POST">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-success">Edit</button>
+      </td>
+      </form>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+
+{% if tareq_pending_orders %}
+<h4>Pending Orders</h4>
+
+<table class="table">
+
+
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">code</th>
+      <th scope="col">Image</th>
+      <th scope="col">Price</th>
+      <th scope="col">Supplier</th>
+      <th scope="col">STATUS</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+
+  {% for entry in tareq_pending_orders %}
+  <tbody>
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{entry.code}}</td>
+      <td><img src="{{ entry.main_image.url }}" class="img-thumbnail rounded" alt="..." width="150" height="150"></td>
+      <td>{{entry.price}}</td>
+      <td>{{entry.supplier}}</td>
+      <td>{{entry.status}}</td>
+      <td>
+        <form action="{% url 'edit_entry' entry.id %}" method="POST">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-success">Edit</button>
+      </td>
+      </form>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endif %}
+
+{% if tareq_complete_orders %}
+<h4>Complete Orders</h4>
+
+<table class="table">
+
+
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">code</th>
+      <th scope="col">Image</th>
+      <th scope="col">Price</th>
+      <th scope="col">Supplier</th>
+      <th scope="col">STATUS</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+
+  {% for entry in tareq_complete_orders %}
+  <tbody>
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{entry.code}}</td>
+      <td><img src="{{ entry.main_image.url }}" class="img-thumbnail rounded" alt="..." width="150" height="150"></td>
+      <td>{{entry.price}}</td>
+      <td>{{entry.supplier}}</td>
+      <td>{{entry.status}}</td>
+      <td>
+        <form action="{% url 'edit_entry' entry.id %}" method="POST">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-success">Edit</button>
+      </td>
+      </form>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+{% endblock %}

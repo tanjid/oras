@@ -1,0 +1,115 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<h1 id="hello">Hello</h1>
+<div class="container px-1 px-sm-5 mx-auto">
+    <form autocomplete="off">
+        <div class="flex-row d-flex justify-content-center">
+            <div class="col-lg-6 col-11 px-1">
+                <div class="input-group input-daterange">
+                    <input type="text" id="start" class="form-control text-left mr-2">
+                    <label class="ml-3 form-control-placeholder" id="start-p" for="start">Start Date</label>
+                    <span class="fa fa-calendar" id="fa-1"></span>
+                    <input type="text" id="end" class="form-control text-left ml-2">
+                    <label class="ml-3 form-control-placeholder" id="end-p" for="end">End Date</label>
+                    <span class="fa fa-calendar" id="fa-2"></span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="input-group input-daterange">
+<input type="text" class="form-control text-left ml-2">
+</div>
+<h1>Insaf</h1>
+
+<!-- <h1>{{insaf_orders_all}}</h1> -->
+
+<h4>Initial Orders</h4>
+
+<table class="table">
+    
+    {% for entry in insaf_orders_all %}
+
+    {% if forloop.first %}
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">code</th>
+            <th scope="col">Image</th>
+            <th scope="col">Price</th>
+            <th scope="col">Supplier</th>
+            <th scope="col">STATUS</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+
+    {% endif %}
+    
+    {% if entry.status == 'Initial' %}
+    <tbody>
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{entry.code}}</td>
+        <td><img src="{{ entry.main_image.url }}" class="img-thumbnail rounded" alt="..." width="150" height="150"></td>
+        <td>{{entry.price}}</td>
+        <td>{{entry.supplier}}</td>
+        <td>{{entry.status}}</td>
+        <td>
+          <form action="{% url 'edit_entry' entry.id %}" method="POST">
+            {% csrf_token %}
+          <button type="submit" class="btn btn-success">Edit</button></td>
+        </form>
+      </tr>
+      {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h4>Assigned Orders</h4>
+
+  <table class="table">
+      
+      {% for entry in insaf_orders_all %}
+
+      {% if entry.status %}
+  
+      {% if forloop.first %}
+      <thead>
+          <tr>
+              <th scope="col">#</th>
+              <th scope="col">code</th>
+              <th scope="col">Image</th>
+              <th scope="col">Price</th>
+              <th scope="col">Supplier</th>
+              <th scope="col">STATUS</th>
+              <th scope="col">Action</th>
+          </tr>
+      </thead>
+  
+      {% endif %}
+      
+      {% if entry.status == 'Assigned' %}
+      <tbody>
+        <tr>
+          <th scope="row">{{forloop.counter}}</th>
+          <td>{{entry.code}}</td>
+          <td><img src="{{ entry.main_image.url }}" class="img-thumbnail rounded" alt="..." width="150" height="150"></td>
+          <td>{{entry.price}}</td>
+          <td>{{entry.supplier}}</td>
+          <td>{{entry.status}}</td>
+          <td>
+            <form action="{% url 'edit_entry' entry.id %}" method="POST">
+              {% csrf_token %}
+            <button type="submit" class="btn btn-success">Edit</button></td>
+          </form>
+        </tr>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+
+
+{% endblock %}

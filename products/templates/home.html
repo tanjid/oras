@@ -1,0 +1,226 @@
+{% extends 'main.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+
+
+
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+
+      <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4">
+          <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                    Intitals Orders Count</div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{initails_orders_count}}</div>
+                </div>
+                <div class="col-auto">
+                  <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+          <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                    assigne_orders_count</div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{assigne_orders_count}}</div>
+                </div>
+                <div class="col-auto">
+                  <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+          <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                    Pending Orders</div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{pending_orders_count}}</div>
+                </div>
+                <div class="col-auto">
+                  <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+          <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                    Complete Orders</div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{complete_orders_count}}</div>
+                </div>
+                <div class="col-auto">
+                  <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Page Heading -->
+      <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+
+      <!-- DataTales Example -->
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+        </div>
+
+
+
+        <div class="card-body">
+          <div class="table-responsive">
+            <h4>Initial Orders</h4>
+
+            <table class="table">
+
+
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">code</th>
+                  <th scope="col">Image</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Supplier</th>
+                  <th scope="col">STATUS</th>
+                  <th scope="col">Order Date</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+
+              {% for entry in Initials %}
+              <tbody>
+                <tr>
+                  <th scope="row">{{forloop.counter}}</th>
+                  <td>{{entry.code}}</td>
+                  <td><img src="{{ entry.code.main_image.url }}" class="img-thumbnail rounded" alt="..." width="150"
+                      height="150"></td>
+                  {% if entry.price == 0 %}
+                  <td></td>
+                  {% else %}
+                  <td>{{entry.price}}</td>
+                  {% endif%}
+                  <td>{{entry.supplier}}</td>
+                  <td>{{entry.status}}</td>
+                  <td>{{entry.order_date}}</td>
+                  <td>
+                    <form action="{% url 'edit_entry' entry.id %}" method="POST">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-success">Edit</button>
+                  </td>
+                  </form>
+                </tr>
+
+                {% endfor %}
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Top Orders</h6>
+        </div>
+
+
+
+        <div class="card-body">
+          <div class="table-responsive">
+
+            <table class="table">
+
+
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">code</th>
+                  <th scope="col">Image</th>
+                  <th scope="col">Num of Orders</th>
+                  <th scope="col">Total Qty</th>
+                </tr>
+              </thead>
+
+              {% for sku in sku_count %}
+              <tbody>
+                <tr>
+                  <th scope="row">{{forloop.counter}}</th>
+                  <td>{{sku.code}}</td>
+                  <td><img src="{{ sku.main_image.url }}" class="img-thumbnail rounded" alt="..." width="150"
+                      height="150"></td>
+                  <td>
+                    Initial Orders: {{sku.initails_sku_orders_count}}
+                    <br>
+                    Assigned Orders: {{sku.assigned_sku_orders_count}}
+                    <br>
+                    Pending Orders: {{sku.pending_sku_orders_count}}
+                    <br>
+                    Complete Orders: {{sku.complete_sku_orders_count}}
+
+                    <hr>
+                    <b>Total Orders: </b>{{sku.total_sku_orders_count}}</td>
+                  <td>
+                    Initial Orders: {{sku.initails_sku_orders_sum}}
+                    <br>
+                    Assigned Orders: {{sku.assigned_sku_orders_sum}}
+                    <br>
+                    Pending Orders: {{sku.pending_sku_orders_sum}}
+                    <br>
+                    Complete Orders: {{sku.complete_sku_orders_sum}}
+
+                    <hr>
+                    Total: {{sku.total_sku_orders_sum}}
+                  </td>
+                  </form>
+                </tr>
+
+                {% endfor %}
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- /.container-fluid -->
+
+  </div>
+  <!-- End of Main Content -->
+
+  <!-- Footer -->
+  <footer class="sticky-footer bg-white">
+    <div class="container my-auto">
+      <div class="copyright text-center my-auto">
+        <span>Copyright &copy; Your Website 2020</span>
+      </div>
+    </div>
+  </footer>
+  <!-- End of Footer -->
+
+</div>
+{% endblock %}
